@@ -16,21 +16,15 @@ def run_regedit():
     os.system("start regedit.exe")
 
 def create_registry_key(path, key_name):
-    try:
-        import winreg as reg
-    except ImportError:
-        import _winreg as reg
-
+    import winreg as reg
+    
     key = reg.CreateKey(reg.HKEY_USERS, path)
     reg.CreateKey(key, key_name)
     reg.CloseKey(key)
 
 def create_registry_value(path, value_name, value_data):
-    try:
-        import winreg as reg
-    except ImportError:
-        import _winreg as reg
-
+    import winreg as reg
+    
     key = reg.OpenKey(reg.HKEY_USERS, path, 0, reg.KEY_WRITE)
     reg.SetValueEx(key, value_name, 0, reg.REG_DWORD, value_data)
     reg.CloseKey(key)
