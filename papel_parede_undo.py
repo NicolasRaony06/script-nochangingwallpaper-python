@@ -42,9 +42,9 @@ def main():
             sids = get_user_sid(username)
         
             for sid in sids:
-                create_registry_key(f"{sid}\\Software\\Microsoft\Windows\\CurrentVersion\\Policies", "ActiveDesktop")
+                create_registry_key(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies", "ActiveDesktop")
 
-                create_registry_value(f"{sid}\\Software\\Microsoft\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallPaper", 0)
+                create_registry_value(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallPaper", 0)
                 
             print("NoChangingWallPaper registry created (value=false)! \nPower by: Nicolas & Pedro Lucas")
 
