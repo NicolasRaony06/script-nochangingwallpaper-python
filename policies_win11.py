@@ -1,7 +1,8 @@
 import os
 import subprocess
+import winreg as reg
 
-senhas_usuarios = ['aluno', 'alunoredes', 'alunods', 'alunoredes']
+senhas_usuarios = [] # Adicionar senhas de acordo com os usuários!
 
 def create_bat_file():
     bat_content = """
@@ -43,19 +44,23 @@ def run_regedit():
     os.system("start regedit.exe")
 
 def create_registry_key(path, key_name):
-    import winreg as reg
-    
     key = reg.CreateKey(reg.HKEY_USERS, path)
     reg.CreateKey(key, key_name)
     reg.CloseKey(key)
 
 def create_registry_value(path, value_name, value_data):
-    import winreg as reg
-    
     key = reg.OpenKey(reg.HKEY_USERS, path, 0, reg.KEY_WRITE)
     reg.SetValueEx(key, value_name, 0, reg.REG_DWORD, value_data)
     reg.CloseKey(key)
 
+def edit_registry_value(path, value):
+    try:
+        registry_key = reg.OpenKey(reg.HKEY_USERS, path, 0, reg.KEY_SET_VALUE)
+        reg.SetValueEx(registry_key, "WallPaper", 0, reg.REG_SZ, value)
+        reg.CloseKey(registry_key)
+    except:
+        return ValueError("Erro ao editar registro de WallPaper")
+    
 def main():
     usernames = None
     while True:
@@ -70,6 +75,8 @@ def main():
                 create_registry_key(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies", "ActiveDesktop")
 
                 create_registry_value(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallPaper", 1)
+
+                edit_registry_value(f"{sid}\\Control Panel\\Desktop", os.path.join(os.path.dirname(os.path.realpath(__file__)), f"wallpaper\\backmcpf.png"))
 
             print("NoChangingWallPaper registry created (value=true)! \nPower by: Nicolas & Pedro Lucas")
 
