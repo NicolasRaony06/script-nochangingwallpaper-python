@@ -2,7 +2,7 @@ import os
 import subprocess
 import winreg as reg
 
-senhas_usuarios = [] # Adicionar senhas de acordo com os usuários!
+senhas_usuarios = ['aluno', 'alunoredes', 'alunods', 'alunoredes']
 
 def create_bat_file():
     bat_content = """
@@ -53,13 +53,21 @@ def create_registry_value(path, value_name, value_data):
     reg.SetValueEx(key, value_name, 0, reg.REG_DWORD, value_data)
     reg.CloseKey(key)
 
-def edit_registry_value(path, value):
+def edit_reg_sz_value(path, registry_name, value):
     try:
         registry_key = reg.OpenKey(reg.HKEY_USERS, path, 0, reg.KEY_SET_VALUE)
-        reg.SetValueEx(registry_key, "WallPaper", 0, reg.REG_SZ, value)
+        reg.SetValueEx(registry_key, registry_name, 0, reg.REG_SZ, value)
         reg.CloseKey(registry_key)
     except:
-        return ValueError("Erro ao editar registro de WallPaper")
+        return ValueError(f"Erro ao editar registro de {registry_name}")
+
+def edit_reg_dword_value(path, registry_name, value):
+    try:
+        registry_key = reg.OpenKey(reg.HKEY_USERS, path, 0, reg.KEY_SET_VALUE)
+        reg.SetValueEx(registry_key, registry_name, 0, reg.REG_DWORD, value)
+        reg.CloseKey(registry_key)
+    except:
+        return ValueError(f"Erro ao editar registro de {registry_name}")
     
 def main():
     usernames = None
@@ -74,9 +82,13 @@ def main():
             for sid in sids:
                 create_registry_key(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies", "ActiveDesktop")
 
-                create_registry_value(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallPaper", 1)
+                create_registry_key(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies", "Explorer")
 
-                edit_registry_value(f"{sid}\\Control Panel\\Desktop", os.path.join(os.path.dirname(os.path.realpath(__file__)), f"wallpaper\\backmcpf.png"))
+                create_registry_value(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallPaper", 1)
+                
+                create_registry_value(f"{sid}\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoThemesTab", 1)
+
+                edit_reg_sz_value(f"{sid}\\Control Panel\\Desktop","WallPaper", os.path.join(os.path.dirname(os.path.realpath(__file__)), f"wallpaper\\backmcpf.png"))
 
             print("NoChangingWallPaper registry created (value=true)! \nPower by: Nicolas & Pedro Lucas")
 
