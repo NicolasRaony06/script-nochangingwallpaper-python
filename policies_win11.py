@@ -2,7 +2,7 @@ import os
 import subprocess
 import winreg as reg
 
-senhas_usuarios = ['aluno', 'alunoredes', 'alunods', 'alunoredes']
+senhas_usuarios = []
 
 def create_bat_file():
     bat_content = """
