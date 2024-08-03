@@ -18,7 +18,7 @@ def create_bat_file():
     return bat_path
 
 def start_user_session(username, password):
-    psexec_path = f'\\PSTools\\psexec.exe'
+    psexec_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), f'PSTools\\psexec.exe')
 
     bat_path = create_bat_file()
 
@@ -90,7 +90,7 @@ def main():
 
                 #edit_registry_value(f"{sid}\\Control Panel\\Desktop", os.path.join(os.path.dirname(os.path.realpath(__file__)), f"wallpaper\\backmcpf.png"))
 
-            print("NoChangingWallPaper registry created (value=true)! \nPower by: Nicolas & Pedro Lucas")
+            print("All policies applied (value=False)! \nPower by: Nicolas & Pedro Lucas")
 
             break
         else:
