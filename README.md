@@ -10,7 +10,7 @@
 <ul>
   <li>Após baixar o script, na pasta wallpaper irá conter o wallpaper que você deseja definir como padrão, portanto, a sua imagem deve ficar lá.</li>
   <br>
-  <li>No arquivo <b>policies_win11.py</b>, você deverá alterar o diretório da sua imagem, por exemplo, na função 'main', na linha 79, haverá a seguinte string padrão: <b>f"wallpaper\\backmcpf.png"</b>, onde o backmcpf.png, deverá ser substituido pelo o nome de sua imagem junto à sua extensão.</li>
+  <li>No arquivo <b>policies_win11.py</b>, você deverá alterar o diretório da sua imagem, por exemplo, na função 'main', na linha 79, haverá a seguinte string padrão: <b>f"wallpaper\\backmcpf.png"</b>, onde o backmcpf.png, deverá ser substituido pelo o nome de sua imagem junto à sua extensão. <strong>Atenção</strong>, o wallpaper precisa estar em um diretório acessível à todos os usuários, para que possa ser aplicado corretamente, uma forma fácil de fazer isso, é via pendrive, ou seja, executar o script no pendrive. Assim, não há necessidade de modificar o diretório.</li>
   <br>
   <li>Ainda no mesmo arquivo .py, na linha 5, haverá uma lista vázia, onde você deverá inserir as senhas dos usuários que irão receber as políticas. Porém, note que a ordem das senhas, irá definir também a ordem dos nomes dos usuários.</li>
 </ul>
